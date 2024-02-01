@@ -785,7 +785,11 @@ OcKernelProcessPrelinked (
 
     OcKernelInjectKexts (Config, CacheTypePrelinked, &Context, DarwinVersion, Is32Bit, LinkedExpansion, ReservedExeSize);
 
+    DEBUG ((DEBUG_INFO, "DEBUG: A\n"));
+
     OcKernelApplyPatches (Config, mOcCpuInfo, DarwinVersion, Is32Bit, CacheTypePrelinked, &Context, NULL, 0);
+
+    DEBUG ((DEBUG_INFO, "DEBUG: B\n"));
 
     *KernelSize = Context.PrelinkedSize;
 

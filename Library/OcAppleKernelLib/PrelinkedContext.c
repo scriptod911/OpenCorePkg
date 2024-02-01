@@ -432,46 +432,55 @@ PrelinkedContextFree (
   LIST_ENTRY      *Link;
   PRELINKED_KEXT  *Kext;
 
+  DEBUG ((DEBUG_INFO, "DEBUG: C\n"));
   if (Context->PrelinkedInfoDocument != NULL) {
     XmlDocumentFree (Context->PrelinkedInfoDocument);
     Context->PrelinkedInfoDocument = NULL;
   }
 
+  DEBUG ((DEBUG_INFO, "DEBUG: D\n"));
   if (Context->KextScratchBuffer != NULL) {
     FreePool (Context->KextScratchBuffer);
     Context->KextScratchBuffer = NULL;
   }
 
+  DEBUG ((DEBUG_INFO, "DEBUG: E\n"));
   if (Context->PrelinkedInfo != NULL) {
     FreePool (Context->PrelinkedInfo);
     Context->PrelinkedInfo = NULL;
   }
 
   if (Context->PooledBuffers != NULL) {
+    DEBUG ((DEBUG_INFO, "DEBUG: F %u\n", Context->PooledBuffersCount));
     for (Index = 0; Index < Context->PooledBuffersCount; ++Index) {
       FreePool (Context->PooledBuffers[Index]);
     }
 
+    DEBUG ((DEBUG_INFO, "DEBUG: G\n"));
     FreePool (Context->PooledBuffers);
     Context->PooledBuffers = NULL;
   }
 
+  DEBUG ((DEBUG_INFO, "DEBUG: H\n"));
   if (Context->LinkBuffer != NULL) {
     ZeroMem (Context->LinkBuffer, Context->LinkBufferSize);
     FreePool (Context->LinkBuffer);
     Context->LinkBuffer = NULL;
   }
 
+  DEBUG ((DEBUG_INFO, "DEBUG: I\n"));
   if (Context->PrelinkedStateKernel != NULL) {
     FreePool (Context->PrelinkedStateKernel);
     Context->PrelinkedStateKernel = NULL;
   }
 
+  DEBUG ((DEBUG_INFO, "DEBUG: J\n"));
   if (Context->PrelinkedStateKexts != NULL) {
     FreePool (Context->PrelinkedStateKexts);
     Context->PrelinkedStateKexts = NULL;
   }
 
+  DEBUG ((DEBUG_INFO, "DEBUG: K\n"));
   while (!IsListEmpty (&Context->PrelinkedKexts)) {
     Link = GetFirstNode (&Context->PrelinkedKexts);
     Kext = GET_PRELINKED_KEXT_FROM_LINK (Link);
@@ -479,6 +488,7 @@ PrelinkedContextFree (
     InternalFreePrelinkedKext (Kext);
   }
 
+  DEBUG ((DEBUG_INFO, "DEBUG: L\n"));
   ZeroMem (&Context->PrelinkedKexts, sizeof (Context->PrelinkedKexts));
 
   //
